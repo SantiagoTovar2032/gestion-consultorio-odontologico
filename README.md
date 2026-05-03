@@ -1,41 +1,64 @@
 # 🦷 Sistema de Gestión de Consultorio Odontológico
 
-Un sistema completo de gestión para consultorios dentales desarrollado con tecnologías modernas.
+<p align="center">
+  <strong>Proyecto full-stack · Sistema de Gestión de Consultorio Odontológico</strong><br>
+  <em>Corporación Universitaria del Huila — CORHUILA · Ingeniería de Sistemas</em>
+</p>
 
-## 📋 Descripción
+<p align="center">
+  <img src="https://img.shields.io/badge/NestJS-11-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS"/>
+  <img src="https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-16-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
+  <img src="https://img.shields.io/badge/Prisma-5.15-2D3748?style=for-the-badge&logo=prisma&logoColor=white" alt="Prisma"/>
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
+</p>
 
-Sistema integral para la administración de consultorios odontológicos que permite gestionar pacientes, citas, tratamientos, historial médico y facturación de manera eficiente y segura.
+<p align="center">
+  <img src="https://img.shields.io/badge/Proyecto-Consultorio%20Odontol%C3%B3gico-blue?style=flat-square" alt="Proyecto"/>
+  <img src="https://img.shields.io/badge/Estado-Desarrollo%20Completo%20✅-brightgreen?style=flat-square" alt="Estado"/>
+</p>
 
-## ✨ Características Principales
+---
 
-- 👥 **Gestión de Pacientes**: Registro completo con historial médico
-- 📅 **Sistema de Citas**: Calendario interactivo con recordatorios
-- 🦷 **Tratamientos Dentales**: Catálogo completo de procedimientos
-- 📊 **Reportes y Estadísticas**: Dashboard con métricas del consultorio
-- 💰 **Facturación**: Generación automática de facturas y presupuestos
-- 🔐 **Autenticación Segura**: Sistema de usuarios con roles diferenciados
-- 📱 **Diseño Responsivo**: Acceso desde cualquier dispositivo
+> **Descripción:**  
+> Sistema de gestión para un consultorio odontológico con tres especialistas.  
+> Permite administrar pacientes, odontólogos, citas, tratamientos y piezas dentales, con historial odontológico por paciente.
 
-## 🛠️ Tecnologías Utilizadas
+---
 
-### Backend
-- **Node.js** - Entorno de ejecución
-- **NestJS** - Framework para APIs robustas
-- **TypeScript** - Tipado estático
-- **PostgreSQL** - Base de datos relacional
-- **Prisma ORM** - Mapeo objeto-relacional
-- **JWT** - Autenticación y autorización
-- **bcrypt** - Encriptación de contraseñas
+## 📋 Tabla de Contenidos
 
-### Frontend
-- **React** - Biblioteca de interfaz de usuario
-- **TypeScript** - Tipado estático
-- **Tailwind CSS** - Framework de estilos
-- **React Router** - Enrutamiento
-- **Axios** - Cliente HTTP
-- **React Hook Form** - Manejo de formularios
+- [🏁 Inicio Rápido](#-inicio-rápido)
+- [🧱 Estructura del Proyecto](#-estructura-del-proyecto)
+- [🧰 Stack Tecnológico](#-stack-tecnológico)
+- [🗄️ Modelo de Datos (Resumen)](#️-modelo-de-datos-resumen)
+- [🧩 Módulos y Funcionalidades](#-módulos-y-funcionalidades)
+- [🧭 Rutas Principales (Frontend)](#-rutas-principales-frontend)
+- [⚙️ Variables de Entorno](#️-variables-de-entorno)
+- [🚀 Ejecución del Proyecto](#-ejecución-del-proyecto)
+- [🧪 Flujo de Uso Sugerido](#-flujo-de-uso-sugerido)
 
-## 📁 Estructura del Proyecto
+---
+
+## 🏁 Inicio Rápido
+
+> Si tienes Docker instalado y configurado, puedes levantar todo con `docker compose up -d`.  
+> Si prefieres desarrollo local, levanta backend y frontend con hot-reload.
+
+### Prerrequisitos mínimos
+
+| Herramienta         | Versión recomendada | Descarga |
+|---------------------|---------------------|----------|
+| **Git**             | Cualquiera          | https://git-scm.com/downloads |
+| **Docker Desktop**  | 4.x                 | https://www.docker.com/products/docker-desktop |
+| **Node.js**         | 20 LTS              | https://nodejs.org |
+
+> ⚠️ Asegúrate de que **Docker Desktop esté corriendo** antes de usar Docker Compose.
+
+---
+
+## 🧱 Estructura del Proyecto
 
 Raíz del repo: `gestion-consultorio-odontologico/`
 
@@ -45,67 +68,19 @@ gestion-consultorio-odontologico/
 │   ├── src/
 │   │   ├── main.ts                  # Punto de entrada NestJS
 │   │   ├── app.module.ts            # Módulo raíz
-│   │   ├── common/                  # Elementos compartidos
-│   │   │   ├── filters/
-│   │   │   ├── interceptors/
-│   │   │   ├── pipes/
-│   │   │   └── guards/
-│   │   ├── config/                  # Configuración (env, etc.)
-│   │   ├── prisma/                  # PrismaService y PrismaModule
+│   │   ├── common/                  # Filters, interceptors, pipes, guards
+│   │   ├── prisma/
 │   │   │   ├── prisma.module.ts
 │   │   │   └── prisma.service.ts
-│   │   └── modules/                 # Módulos de dominio
+│   │   └── modules/
 │   │       ├── pacientes/
-│   │       │   ├── paciente.module.ts
-│   │       │   ├── controller/
-│   │       │   │   └── paciente.controller.ts
-│   │       │   ├── service/
-│   │       │   │   └── paciente.service.ts
-│   │       │   ├── repository/
-│   │       │   │   └── paciente.repository.ts
-│   │       │   └── dto/
-│   │       │       ├── create-paciente.dto.ts
-│   │       │       └── update-paciente.dto.ts
 │   │       ├── odontologos/
-│   │       │   ├── odontologo.module.ts
-│   │       │   ├── controller/
-│   │       │   │   └── odontologo.controller.ts
-│   │       │   ├── service/
-│   │       │   │   └── odontologo.service.ts
-│   │       │   ├── repository/
-│   │       │   │   └── odontologo.repository.ts
-│   │       │   └── dto/
 │   │       ├── citas/
-│   │       │   ├── cita.module.ts
-│   │       │   ├── controller/
-│   │       │   │   └── cita.controller.ts
-│   │       │   ├── service/
-│   │       │   │   └── cita.service.ts
-│   │       │   ├── repository/
-│   │       │   │   └── cita.repository.ts
-│   │       │   └── dto/
 │   │       ├── piezas_dentales/
-│   │       │   ├── pieza_dental.module.ts
-│   │       │   ├── controller/
-│   │       │   │   └── pieza_dental.controller.ts
-│   │       │   ├── service/
-│   │       │   │   └── pieza_dental.service.ts
-│   │       │   ├── repository/
-│   │       │   │   └── pieza_dental.repository.ts
-│   │       │   └── dto/
 │   │       └── tratamientos/
-│   │           ├── tratamiento.module.ts
-│   │           ├── controller/
-│   │           │   └── tratamiento.controller.ts
-│   │           ├── service/
-│   │           │   └── tratamiento.service.ts
-│   │           ├── repository/
-│   │           │   └── tratamiento.repository.ts
-│   │           └── dto/
 │   ├── prisma/
-│   │   ├── schema.prisma             # Esquema Prisma (BD)
-│   │   └── migrations/               # Migraciones
-│   ├── test/
+│   │   ├── schema.prisma            # Esquema Prisma (modelo de datos)
+│   │   └── migrations/              # Migraciones
 │   ├── Dockerfile
 │   ├── package.json
 │   ├── tsconfig.json
@@ -114,33 +89,15 @@ gestion-consultorio-odontologico/
 ├── frontend/                        # Frontend (Next.js + React + TS + Tailwind)
 │   ├── src/
 │   │   ├── app/                     # App Router
-│   │   │   ├── layout.tsx           # Layout principal
 │   │   │   ├── page.tsx             # Home
 │   │   │   ├── pacientes/
-│   │   │   │   ├── page.tsx         # Listado de pacientes
-│   │   │   │   ├── nuevo/
-│   │   │   │   │   └── page.tsx     # Crear paciente
-│   │   │   │   └── [id]/
-│   │   │   │       ├── page.tsx     # Detalle de paciente
-│   │   │   │       └── editar/
-│   │   │   │           └── page.tsx # Editar paciente
 │   │   │   ├── odontologos/
 │   │   │   ├── citas/
 │   │   │   └── tratamientos/
 │   │   ├── components/
-│   │   │   └── Navbar.tsx           # Barra de navegación
+│   │   │   └── Navbar.tsx
 │   │   ├── services/                # Acceso a la API
-│   │   │   ├── paciente.service.ts
-│   │   │   ├── odontologo.service.ts
-│   │   │   ├── cita.service.ts
-│   │   │   ├── tratamiento.service.ts
-│   │   │   └── pieza_dental.service.ts
-│   │   ├── interfaces/
-│   │   │   ├── paciente.interface.ts
-│   │   │   ├── odontologo.interface.ts
-│   │   │   ├── cita.interface.ts
-│   │   │   └── tratamiento.interface.ts
-│   │   └── styles/
+│   │   └── interfaces/              # Tipos TypeScript
 │   ├── Dockerfile
 │   ├── package.json
 │   ├── tsconfig.json
@@ -150,18 +107,57 @@ gestion-consultorio-odontologico/
 ├── .gitignore
 └── README.md
 
+```
+## 🧰 Stack Tecnológico
 
+### 🗄️ Backend
 
+- **Node.js**  
+  - Entorno de ejecución JavaScript
 
-## 🚀 Instalación y Configuración
+- **NestJS 11**  
+  - Framework de Node.js basado en TypeScript  
+  - Arquitectura modular y en capas (Controller → Service → Repository)
 
-### Prerrequisitos
-- Node.js (v18 o superior)
-- PostgreSQL (v14 o superior)
-- npm o yarn
+- **TypeScript 5**  
+  - Tipado estático y soporte avanzado para el editor
 
-### 1. Clonar el repositorio
-```bash
-git clone https://github.com/tu-usuario/consultorio-odontologico.git
-cd consultorio-odontologico
+- **Prisma ORM 5.15**  
+  - ORM para Node.js / TypeScript  
+  - Manejo de migraciones y cliente tipado para PostgreSQL
 
+- **PostgreSQL 16**  
+  - Base de datos relacional  
+  - Uso de llaves foráneas y relaciones entre entidades
+
+---
+
+### 🖥️ Frontend
+
+- **Next.js 15 (App Router)**  
+  - Framework de React para producción  
+  - Enrutamiento basado en archivos dentro de `src/app`  
+  - Soporte para renderizado híbrido (SSR/CSR)
+
+- **React**  
+  - Biblioteca para construir interfaces de usuario
+
+- **TypeScript**  
+  - Tipado estático también en el frontend
+
+- **Tailwind CSS**  
+  - Framework de utilidades CSS para diseño rápido y responsivo
+
+---
+
+### 🧱 Infraestructura
+
+- **Docker**  
+  - Contenedores para base de datos, backend y frontend
+
+- **Docker Compose**  
+  - Orquestación de servicios (`db`, `backend`, `frontend`)  
+  - Facilita levantar todo el sistema con un solo comando
+
+- **Git / GitHub**  
+  - Control de versiones y alojamiento del código
