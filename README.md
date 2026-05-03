@@ -523,3 +523,7 @@ Si algo no responde, revisa:
 Que el backend esté corriendo ( npm run start:devsin errores).
 Que DATABASE_URLen backend/.envapunte a la base correcta.
 Que NEXT_PUBLIC_API_URLen frontend/.env.localapunte al backend.
+
+# Sistema de Gestión de Consultorio Odontológico 
+
+  Proyecto desarrollado por los Ingenieros Santiago Tovar Monje y Luis Angel Garcia Guarin
