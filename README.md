@@ -58,6 +58,8 @@ gestion-consultorio-odontologico/
 ├── frontend/                # Frontend (Next.js + React + TS + Tailwind)
 └── docker-compose.yml       # Orquestación de servicios (db, backend, frontend)
 
+---
+
 ## 🧰 Stack Tecnológico
 
 ### Backend
