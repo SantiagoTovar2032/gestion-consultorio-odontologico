@@ -161,3 +161,101 @@ gestion-consultorio-odontologico/
 
 - **Git / GitHub**  
   - Control de versiones y alojamiento del código
+
+## 🗄️ Modelo de Datos (Resumen)
+
+### Entidades principales
+
+- **Paciente**
+  - id
+  - nombre
+  - apellido
+  - cedula (única)
+  - telefono
+  - email
+  - fechaNacimiento
+  - direccion
+  - antecedentesMedicos
+  - alergias
+  - createdAt
+  - updatedAt
+
+- **Especialidad**
+  - id
+  - nombre (único)
+  - descripcion
+  - createdAt
+  - updatedAt
+
+- **Odontologo**
+  - id
+  - nombre
+  - apellido
+  - cedula (única)
+  - telefono
+  - email (único)
+  - especialidadId (FK → Especialidad)
+  - horarioInicio
+  - horarioFin
+  - createdAt
+  - updatedAt
+
+- **Cita**
+  - id
+  - pacienteId (FK → Paciente)
+  - odontologoId (FK → Odontologo)
+  - fecha
+  - hora
+  - motivoConsulta
+  - estado (`Programada`, `Realizada`, `Cancelada`)
+  - createdAt
+  - updatedAt
+
+- **PiezaDental**
+  - id
+  - numero (único, código FDI: "11", "21", "36", etc.)
+  - nombre
+  - tipo (`Incisivo`, `Canino`, `Premolar`, `Molar`, etc.)
+  - createdAt
+  - updatedAt
+
+- **Tratamiento**
+  - id
+  - pacienteId (FK → Paciente)
+  - odontologoId (FK → Odontologo)
+  - piezaDentalId (FK opcional → PiezaDental)
+  - fecha
+  - diagnostico
+  - procedimiento
+  - costo (Decimal)
+  - observaciones
+  - createdAt
+  - updatedAt
+
+---
+
+### Relaciones principales
+
+- Un **Paciente** tiene:
+  - muchas **Citas**
+  - muchos **Tratamientos**
+
+- Un **Odontólogo** tiene:
+  - muchas **Citas**
+  - muchos **Tratamientos**
+  - una **Especialidad**
+
+- Una **Especialidad** tiene:
+  - muchos **Odontólogos**
+
+- Una **PiezaDental** puede estar asociada a:
+  - muchos **Tratamientos**
+
+- Cada **Cita** se asocia a:
+  - un **Paciente**
+  - un **Odontólogo**
+
+- Cada **Tratamiento** se asocia a:
+  - un **Paciente**
+  - un **Odontólogo**
+  - (opcional) una **PiezaDental**
