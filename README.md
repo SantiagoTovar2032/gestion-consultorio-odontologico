@@ -200,6 +200,101 @@ gestion-consultorio-odontologico/
   - createdAt
   - updatedAt
 
+## 🧭 Rutas Principales (Frontend)
+
+### 🏠 Inicio
+
+- `/`  
+  Página principal del sistema con tarjetas de acceso rápido a:
+  - Pacientes  
+  - Odontólogos  
+  - Citas  
+  - Tratamientos  
+
+---
+
+### 👤 Pacientes
+
+- `/pacientes`  
+  Listado de pacientes (tabla con acciones Ver / Editar / Eliminar).
+
+- `/pacientes/nuevo`  
+  Formulario para crear un nuevo paciente.
+
+- `/pacientes/[id]`  
+  Detalle del paciente seleccionado:
+  - Datos generales  
+  - Historial de tratamientos (diagnóstico, procedimiento, pieza dental, costo).
+
+- `/pacientes/[id]/editar`  
+  Formulario para editar los datos del paciente (incluye antecedentes y alergias).
+
+---
+
+### 👨‍⚕️ Odontólogos
+
+- `/odontologos`  
+  Listado de odontólogos (nombre, cédula, teléfono, especialidad).
+
+- `/odontologos/nuevo`  
+  Formulario para crear un nuevo odontólogo.
+
+- `/odontologos/[id]`  
+  Detalle del odontólogo seleccionado:
+  - Datos generales  
+  - Especialidad  
+  - Horario.
+
+- `/odontologos/[id]/editar`  
+  Formulario para editar datos del odontólogo.
+
+---
+
+### 📅 Citas
+
+- `/citas`  
+  Listado de citas (fecha, hora, paciente, odontólogo, estado).
+
+- `/citas/nuevo`  
+  Formulario para crear una nueva cita seleccionando paciente y odontólogo.
+
+- `/citas/[id]`  
+  Detalle de la cita:
+  - Fecha y hora  
+  - Paciente  
+  - Odontólogo  
+  - Motivo de consulta  
+  - Estado.
+
+- `/citas/[id]/editar`  
+  Formulario para modificar fecha, hora, estado o motivo de la cita.
+
+---
+
+### 💊 Tratamientos
+
+- `/tratamientos`  
+  Listado de tratamientos (paciente, odontólogo, pieza dental, diagnóstico, costo).
+
+- `/tratamientos/nuevo`  
+  Formulario para registrar un nuevo tratamiento:
+  - Paciente  
+  - Odontólogo  
+  - Pieza dental (opcional)  
+  - Diagnóstico  
+  - Procedimiento  
+  - Costo.
+
+- `/tratamientos/[id]`  
+  Detalle del tratamiento:
+  - Paciente  
+  - Odontólogo  
+  - Pieza dental  
+  - Diagnóstico, procedimiento, costo, observaciones.
+
+- `/tratamientos/[id]/editar`  
+  Formulario para editar información del tratamiento.
+
 - **Cita**
   - id
   - pacienteId (FK → Paciente)
@@ -259,3 +354,172 @@ gestion-consultorio-odontologico/
   - un **Paciente**
   - un **Odontólogo**
   - (opcional) una **PiezaDental**
+
+## ⚙️ Variables de Entorno
+
+Para que el proyecto funcione correctamente necesitas configurar variables de entorno en **backend**, **frontend** y (opcionalmente) en la **raíz**.
+
+---
+
+### 1️⃣ Backend (`backend/.env`)
+
+Archivo: `gestion-consultorio-odontologico/backend/.env`
+
+Variables típicas para desarrollo local:
+
+```env
+# Conexión a la base de datos PostgreSQL
+DATABASE_URL="postgresql://admin:admin123@localhost:5432/consultorio_odontologico"
+
+# Puerto donde se expone la API NestJS
+PORT=3001
+
+# Entorno de ejecución
+NODE_ENV=development
+
+
+
+## 🚀 Ejecución del Proyecto
+
+Existen dos formas principales de ejecutar el sistema:
+
+1. Usando **Docker Compose** (recomendado para levantar todo rápido)  
+2. En **modo desarrollo local** (backend y frontend con hot-reload)
+
+---
+
+### 🐳 Opción A — Con Docker Compose (todo en contenedores)
+
+Requisitos:
+
+- Docker Desktop instalado y corriendo
+- Docker Compose disponible en la línea de comandos
+
+Pasos (desde la raíz del proyecto `gestion-consultorio-odontologico`):
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/SantiagoTovar2032/gestion-consultorio-odontologico.git
+cd gestion-consultorio-odontologico
+
+# 2. (Opcional) crear archivo .env en la raíz si lo usas
+# cp .env.example .env    (Linux / macOS)
+# copy .env.example .env  (Windows)
+
+# 3. Levantar todos los servicios (db + backend + frontend)
+docker compose up --build
+
+```
+
+Servicios (URLs por defecto):
+
+Servicio	URL
+Interfaz	http://localhost:3000
+Backend	http://localhost:3001
+PostgreSQL	localhost:5432 (dentro de Docker)
+La primera vez puede tardar varios minutos (descarga de imágenes y compilación).
+
+Comandos útiles:
+
+intento
+
+Colapsar
+
+
+ Copiar
+
+# Ver estado de los contenedores
+docker compose ps
+
+# Ver logs del backend
+docker compose logs backend
+
+# Detener y eliminar contenedores (manteniendo datos)
+docker compose down
+
+# Detener, eliminar contenedores y eliminar datos (volúmenes)
+docker compose down -v
+🧑‍💻 Opción B — Desarrollo local (recarga en caliente)
+Ideal cuando estás trabajando en el código y quieres ver cambios al instante.
+
+1️⃣ Clonar el repositorio
+intento
+
+Colapsar
+
+
+ Copiar
+
+git clone https://github.com/SantiagoTovar2032/gestion-consultorio-odontologico.git
+cd gestion-consultorio-odontologico
+2️⃣ Levantar solo la base de datos con Docker
+intento
+
+Colapsar
+
+
+ Copiar
+
+docker compose up db
+Esto levanta PostgreSQL usando la configuración de docker-compose.yml.
+
+3️⃣ Servidor (NestJS + Prisma)
+En otra terminal:
+
+intento
+
+Colapsar
+
+
+ Copiar
+
+cd backend
+
+# Instalar dependencias
+npm install
+
+# Ejecutar migraciones y generar cliente Prisma
+npx prisma migrate dev
+npx prisma generate
+
+# Levantar el backend en modo desarrollo (hot-reload)
+npm run start:dev
+Backend disponible en:
+
+http://localhost:3001
+4️⃣ Frontend (Next.js)
+En otra terminal:
+
+intento
+
+Colapsar
+
+
+ Copiar
+
+cd frontend
+
+# Instalar dependencias
+npm install
+
+# Levantar el frontend en modo desarrollo (hot-reload)
+npm run dev
+Frontend disponible en:
+
+http://localhost:3000
+Asegúrate de que la variable NEXT_PUBLIC_API_URLen frontend/.env.localpunte al backend, por ejemplo:
+NEXT_PUBLIC_API_URL=http://localhost:3001
+
+✅ Verificar rápido funcionamiento
+Abre http://localhost:3000en el navegador
+Navega a:
+/pacientes
+/odontologos
+/citas
+/tratamientos
+Crea un paciente, un odontólogo, una cita y un tratamiento para validar el flujo completo.
+Si algo no responde, revisa:
+
+Que el backend esté corriendo ( npm run start:devsin errores).
+Que DATABASE_URLen backend/.envapunte a la base correcta.
+Que NEXT_PUBLIC_API_URLen frontend/.env.localapunte al backend.
