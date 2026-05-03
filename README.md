@@ -1,6 +1,6 @@
 # 🦷 Sistema de Gestión de Consultorio Odontológico
 
-Proyecto full-stack desarrollado con NestJS, Next.js, Prisma, PostgreSQL y Docker para la gestión de:
+Proyecto full-stack para la gestión de:
 
 - Pacientes
 - Odontólogos
@@ -8,7 +8,7 @@ Proyecto full-stack desarrollado con NestJS, Next.js, Prisma, PostgreSQL y Docke
 - Tratamientos
 - Piezas dentales
 
-Basado en la arquitectura y metodología usada en el proyecto de clase de Sistemas Avanzados.
+Desarrollado con NestJS, Next.js, Prisma, PostgreSQL y Docker, siguiendo una arquitectura en capas (Controller → Service → Repository).
 
 ---
 
@@ -17,207 +17,168 @@ Basado en la arquitectura y metodología usada en el proyecto de clase de Sistem
 ```bash
 gestion-consultorio-odontologico/
 ├── backend/                # API REST (NestJS + Prisma)
-├── frontend/               # Frontend (Next.js 13+ con App Router)
-└── docker-compose.yml      # Orquestación de servicios (DB, backend, frontend)
-
+├── frontend/               # Frontend (Next.js 13+ App Router)
+└── docker-compose.yml      # Orquestación de servicios
 ⚙️ Tecnologías
 Backend: NestJS, TypeScript, Prisma ORM
 Frontend: Next.js (App Router), React, TypeScript, Tailwind CSS
 Base de Datos: PostgreSQL
 ORM: Prisma
-
+Contenedores: Docker, Docker Compose
 📂 Variables de Entorno
-1. Backend ( backend/.env)
-entorno
-
-Colapsar
-
-
- Copiar
-
+1. Backend (backend/.env)
 DATABASE_URL="postgresql://admin:admin123@localhost:5432/consultorio_odontologico"
 PORT=3001
-2. Interfaz de usuario ( frontend/.env.local)
-entorno
-
-Colapsar
-
-
- Copiar
-
+2. Frontend (frontend/.env.local)
 NEXT_PUBLIC_API_URL=http://localhost:3001
-3. (Opcional) Docker / raíz ( .enven la raíz del proyecto)
-entorno
-
-Colapsar
-
-
- Copiar
-
+3. (Opcional) Docker (.env en la raíz)
 DB_USER=admin
 DB_PASSWORD=admin123
 DB_NAME=consultorio_odontologico
-Ajusta las credenciales según tu configuración si es necesario.
+
+Ajusta las credenciales según tu configuración.
 
 🚀 Cómo Ejecutar el Proyecto
-Opción 1: Ejecutar Backend y Frontend localmente (modo desarrollo)
+🔹 Opción 1: Modo Desarrollo
 1. Backend (NestJS)
-intento
-
-Colapsar
-
-
- Copiar
-
 cd backend
 npm install
 npx prisma generate
 npx prisma migrate dev --name init
 npm run start:dev
-El backend quedará disponible en:
 
-http://localhost:3001
+Disponible en:
+👉 http://localhost:3001
 
-2. Interfaz de usuario (Next.js)
-En otra terminal:
-
-intento
-
-Colapsar
-
-
- Copiar
-
+2. Frontend (Next.js)
 cd frontend
 npm install
 npm run dev
-El frontend quedará disponible en:
 
-http://localhost:3000
+Disponible en:
+👉 http://localhost:3000
 
-Opción 2: Ejecutar todo con Docker Compose
-Asegúrate de tener Docker Desktop funcionando.
-
-En la raíz del proyecto:
-
-intento
-
-Colapsar
-
-
- Copiar
-
+🔹 Opción 2: Docker Compose
 docker compose up -d
-Esto levanta:
 
-PostgreSQL ( db)
-Backend NestJS ( backend)
-Frontend Next.js ( frontend)
-Ver el estado:
+Servicios:
 
-intento
+PostgreSQL (db)
+Backend (backend)
+Frontend (frontend)
 
-Colapsar
-
-
- Copiar
+Ver estado:
 
 docker compose ps
-📚 Funcionalidades implementadas
+📚 Funcionalidades Implementadas
 🧑‍⚕️ Pacientes
-CRUD completo.
+CRUD completo
 Campos:
-nombre, apellidos, cédula, teléfono, correo electrónico
+nombre, apellidos, cédula, teléfono, correo
 fecha de nacimiento
 dirección
 antecedentes médicos
 alergias
-Vista de detalle con:
-Datos completos del paciente
-Historial de tratamientos asociados
+Vista de detalle:
+Información completa
+Historial de tratamientos
 👨‍⚕️ Odontólogos
-CRUD completo.
+CRUD completo
 Campos:
-nombre, apellidos, cédula, teléfono, correo electrónico
-especialidadId (relación con Especialidad)
+nombre, apellidos, cédula, teléfono, correo
+especialidadId
 horarioInicio, horarioFin
-Relacionados con citas y tratamientos.
+Relación con citas y tratamientos
 📅 Citas
-CRUD completo.
+CRUD completo
 Asociadas a:
-Paciente ( pacienteId)
-Odontólogo ( odontologoId)
+pacienteId
+odontologoId
 Campos:
 fecha, hora
-motivo de consulta
+motivo
 estado (Programada, Realizada, Cancelada)
 🦷 Piezas Dentales
-Catálogo de piezas dentales.
+Catálogo dental
 Campos:
-numero (IED, ej: "11", "21", "36")
+número (ej: "11", "36")
 nombre
 tipo (Incisivo, Canino, Premolar, Molar)
-Usadas en el registro de tratamientos.
+Usadas en tratamientos
 💊 Tratamientos
-CRUD completo.
+CRUD completo
 Asociados a:
-Paciente ( pacienteId)
-Odontólogo ( odontologoId)
-PiezaDental opcional ( piezaDentalId)
+pacienteId
+odontologoId
+piezaDentalId (opcional)
 Campos:
-fecha (por defecto actual si no se envía)
+fecha
 diagnóstico
 procedimiento
-costo (Decimal)
+costo
 observaciones
-Mostrados como historial odontológico del paciente.
+Historial odontológico del paciente
 🧭 Rutas Principales (Frontend)
-Página de inicio
+🏠 Inicio
 /
-Tablero con accesorios rápidos a:
+
+Acceso a módulos:
+
 Pacientes
 Odontólogos
 Citas
 Tratamientos
-Módulo Pacientes
-/pacientes→ Listado de pacientes
-/pacientes/nuevo→ Crear paciente
-/pacientes/[id]→ Detalle de paciente + historial de tratamientos
-/pacientes/[id]/editar→ Editar paciente
-Módulo Odontólogos
-/odontologos→ Listado de odontólogos
-/odontologos/nuevo→ Crear odontólogo
-/odontologos/[id]→ Detalle de odontólogo
-/odontologos/[id]/editar→ Editar odontólogo
-Módulo Citas
-/citas→ Listado de citas
-/citas/nuevo→ Crear cita
-/citas/[id]→ Detalle de cita
-/citas/[id]/editar→ Editar cita
-Módulo Tratamientos
-/tratamientos→ Listado de tratamientos
-/tratamientos/nuevo→ Crear tratamiento
-/tratamientos/[id]→ Detalle de tratamiento
-/tratamientos/[id]/editar→ Editar tratamiento
+👤 Pacientes
+/pacientes
+/pacientes/nuevo
+/pacientes/[id]
+/pacientes/[id]/editar
+🦷 Odontólogos
+/odontologos
+/odontologos/nuevo
+/odontologos/[id]
+/odontologos/[id]/editar
+📅 Citas
+/citas
+/citas/nuevo
+/citas/[id]
+/citas/[id]/editar
+💊 Tratamientos
+/tratamientos
+/tratamientos/nuevo
+/tratamientos/[id]
+/tratamientos/[id]/editar
 🧪 Flujo Ejemplar
-Crear un Paciente desde /pacientes/nuevo.
-Crear un Odontólogo desde /odontologos/nuevo.
-Crear una Pieza Dental (vía endpoint /piezas-dentaleso Prisma Studio).
-Crear una Cita desde /citas/nuevoescogiendo paciente y odontólogo.
-Registrar un Tratamiento desde /tratamientos/nuevoasociado:
-Paciente
-Odontólogo
-Pieza Dental (opcional)
-Ver el historial odontológico completo del paciente en /pacientes/[id].
+Crear Paciente → /pacientes/nuevo
+Crear Odontólogo → /odontologos/nuevo
+Crear Pieza Dental → API o Prisma Studio
+Crear Cita → /citas/nuevo
+Crear Tratamiento → /tratamientos/nuevo
+Ver historial → /pacientes/[id]
 👨‍🏫 Notas para el Docente
-Estructura monorepo siguiendo la idea de:
-backend/para NestJS + Prisma.
-frontend/para Next.js.
-Arquitectura del backend en capas:
-Controller→ Service→Repository
-DTOs conclass-validator
-Prisma como única capa de acceso a datos.
-Frontend usando:
-Enrutador de aplicaciones Next.js
+Estructura monorepo
+backend/ → NestJS + Prisma
+frontend/ → Next.js
+Arquitectura en capas:
+Controller → Service → Repository
+Backend:
+DTOs con class-validator
+Prisma como única capa de datos
+Frontend:
+App Router (Next.js)
+Servicios en src/services
 Páginas por entidad
-Servicios src/servicespara consumir la API.
+📸 Capturas (Opcional)
+
+Puedes agregar:
+
+Dashboard
+Listado de pacientes
+Detalle con historial
+Formularios
+📦 Subir cambios
+git add README.md
+git commit -m "Agregar README con documentación completa del proyecto"
+git push
+
+---
