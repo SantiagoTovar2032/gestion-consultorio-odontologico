@@ -36,3 +36,18 @@ Sistema integral para la administración de consultorios odontológicos que perm
 - **React Hook Form** - Manejo de formularios
 
 ## 📁 Estructura del Proyecto
+
+
+
+## 🚀 Instalación y Configuración
+
+### Prerrequisitos
+- Node.js (v18 o superior)
+- PostgreSQL (v14 o superior)
+- npm o yarn
+
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/tu-usuario/consultorio-odontologico.git
+cd consultorio-odontologico
+
