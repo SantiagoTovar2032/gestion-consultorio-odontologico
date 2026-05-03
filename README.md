@@ -37,6 +37,120 @@ Sistema integral para la administración de consultorios odontológicos que perm
 
 ## 📁 Estructura del Proyecto
 
+Raíz del repo: `gestion-consultorio-odontologico/`
+
+```bash
+gestion-consultorio-odontologico/
+├── backend/                         # API REST (NestJS + Prisma + PostgreSQL)
+│   ├── src/
+│   │   ├── main.ts                  # Punto de entrada NestJS
+│   │   ├── app.module.ts            # Módulo raíz
+│   │   ├── common/                  # Elementos compartidos
+│   │   │   ├── filters/
+│   │   │   ├── interceptors/
+│   │   │   ├── pipes/
+│   │   │   └── guards/
+│   │   ├── config/                  # Configuración (env, etc.)
+│   │   ├── prisma/                  # PrismaService y PrismaModule
+│   │   │   ├── prisma.module.ts
+│   │   │   └── prisma.service.ts
+│   │   └── modules/                 # Módulos de dominio
+│   │       ├── pacientes/
+│   │       │   ├── paciente.module.ts
+│   │       │   ├── controller/
+│   │       │   │   └── paciente.controller.ts
+│   │       │   ├── service/
+│   │       │   │   └── paciente.service.ts
+│   │       │   ├── repository/
+│   │       │   │   └── paciente.repository.ts
+│   │       │   └── dto/
+│   │       │       ├── create-paciente.dto.ts
+│   │       │       └── update-paciente.dto.ts
+│   │       ├── odontologos/
+│   │       │   ├── odontologo.module.ts
+│   │       │   ├── controller/
+│   │       │   │   └── odontologo.controller.ts
+│   │       │   ├── service/
+│   │       │   │   └── odontologo.service.ts
+│   │       │   ├── repository/
+│   │       │   │   └── odontologo.repository.ts
+│   │       │   └── dto/
+│   │       ├── citas/
+│   │       │   ├── cita.module.ts
+│   │       │   ├── controller/
+│   │       │   │   └── cita.controller.ts
+│   │       │   ├── service/
+│   │       │   │   └── cita.service.ts
+│   │       │   ├── repository/
+│   │       │   │   └── cita.repository.ts
+│   │       │   └── dto/
+│   │       ├── piezas_dentales/
+│   │       │   ├── pieza_dental.module.ts
+│   │       │   ├── controller/
+│   │       │   │   └── pieza_dental.controller.ts
+│   │       │   ├── service/
+│   │       │   │   └── pieza_dental.service.ts
+│   │       │   ├── repository/
+│   │       │   │   └── pieza_dental.repository.ts
+│   │       │   └── dto/
+│   │       └── tratamientos/
+│   │           ├── tratamiento.module.ts
+│   │           ├── controller/
+│   │           │   └── tratamiento.controller.ts
+│   │           ├── service/
+│   │           │   └── tratamiento.service.ts
+│   │           ├── repository/
+│   │           │   └── tratamiento.repository.ts
+│   │           └── dto/
+│   ├── prisma/
+│   │   ├── schema.prisma             # Esquema Prisma (BD)
+│   │   └── migrations/               # Migraciones
+│   ├── test/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── .env
+│
+├── frontend/                        # Frontend (Next.js + React + TS + Tailwind)
+│   ├── src/
+│   │   ├── app/                     # App Router
+│   │   │   ├── layout.tsx           # Layout principal
+│   │   │   ├── page.tsx             # Home
+│   │   │   ├── pacientes/
+│   │   │   │   ├── page.tsx         # Listado de pacientes
+│   │   │   │   ├── nuevo/
+│   │   │   │   │   └── page.tsx     # Crear paciente
+│   │   │   │   └── [id]/
+│   │   │   │       ├── page.tsx     # Detalle de paciente
+│   │   │   │       └── editar/
+│   │   │   │           └── page.tsx # Editar paciente
+│   │   │   ├── odontologos/
+│   │   │   ├── citas/
+│   │   │   └── tratamientos/
+│   │   ├── components/
+│   │   │   └── Navbar.tsx           # Barra de navegación
+│   │   ├── services/                # Acceso a la API
+│   │   │   ├── paciente.service.ts
+│   │   │   ├── odontologo.service.ts
+│   │   │   ├── cita.service.ts
+│   │   │   ├── tratamiento.service.ts
+│   │   │   └── pieza_dental.service.ts
+│   │   ├── interfaces/
+│   │   │   ├── paciente.interface.ts
+│   │   │   ├── odontologo.interface.ts
+│   │   │   ├── cita.interface.ts
+│   │   │   └── tratamiento.interface.ts
+│   │   └── styles/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── .env.local
+│
+├── docker-compose.yml               # Orquestación de db + backend + frontend
+├── .gitignore
+└── README.md
+
+
 
 
 ## 🚀 Instalación y Configuración
