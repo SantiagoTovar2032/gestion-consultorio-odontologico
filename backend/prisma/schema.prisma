@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de Paciente
+model Paciente {
+  id                  Int           @id @default(autoincrement())
+  nombre              String
+  apellido            String
+  cedula              String        @unique
+  telefono            String
+  email               String?
+  fechaNacimiento     DateTime
+  direccion           String?
+  antecedentesMedicos String?       @db.Text
+  alergias            String?       @db.Text
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  citas               Cita[]
+  tratamientos        Tratamiento[]
+
+  @@map("pacientes")
+}
+
+// Modelo de Especialidad
+model Especialidad {
+  id          Int          @id @default(autoincrement())
+  nombre      String       @unique
+  descripcion String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  odontologos Odontologo[]
+
+  @@map("especialidades")
+}
+
+// Modelo de Odontólogo
+model Odontologo {
+  id             Int          @id @default(autoincrement())
+  nombre         String
+  apellido       String
+  cedula         String       @unique
+  telefono       String
+  email          String       @unique
+  especialidadId Int
+  horarioInicio  String       // Ej: "08:00"
+  horarioFin     String       // Ej: "17:00"
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  especialidad   Especialidad @relation(fields: [especialidadId], references: [id])
+  citas          Cita[]
+  tratamientos   Tratamiento[]
+
+  @@map("odontologos")
+}
+
+// Modelo de Cita
+model Cita {
+  id             Int       @id @default(autoincrement())
+  pacienteId     Int
+  odontologoId   Int
+  fecha          DateTime
+  hora           String    // Ej: "10:30"
+  motivoConsulta String    @db.Text
+  estado         String    @default("Programada") // Programada, Realizada, Cancelada
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  paciente       Paciente   @relation(fields: [pacienteId], references: [id])
+  odontologo     Odontologo @relation(fields: [odontologoId], references: [id])
+
+  @@map("citas")
+}
+
+// Modelo de Pieza Dental
+model PiezaDental {
+  id          Int           @id @default(autoincrement())
+  numero      String        @unique // Ej: "11", "21", "31"
+  nombre      String        // Nombre descriptivo
+  tipo        String        // Incisivo, canino, molar, etc.
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  tratamientos Tratamiento[]
+
+  @@map("piezas_dentales")
+}
+
+// Modelo de Tratamiento
+model Tratamiento {
+  id            Int         @id @default(autoincrement())
+  pacienteId    Int
+  odontologoId  Int
+  piezaDentalId Int?
+  fecha         DateTime    @default(now())
+  diagnostico   String      @db.Text
+  procedimiento String      @db.Text
+  costo         Decimal     @db.Decimal(10, 2)
+  observaciones String?     @db.Text
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  paciente      Paciente     @relation(fields: [pacienteId], references: [id])
+  odontologo    Odontologo   @relation(fields: [odontologoId], references: [id])
+  piezaDental   PiezaDental? @relation(fields: [piezaDentalId], references: [id])
+
+  @@map("tratamientos")
+}
