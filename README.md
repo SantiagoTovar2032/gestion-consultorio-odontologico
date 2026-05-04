@@ -2,7 +2,7 @@
 Santiago Tovar Monje & Luis Garcia Guarin
 <p align="center">
   <strong>Proyecto full-stack · Sistema de Gestión de Consultorio Odontológico</strong><br>
-  <em>Corporación Universitaria del Huila — CORHUILA · Ingeniería de Sistemas</em>
+  <em>Corporación Universitaria del Huila — CORHUILA · Ingeniería Mecatronica</em>
 </p>
 
 <p align="center">
