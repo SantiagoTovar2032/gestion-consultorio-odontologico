@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 
-export default function Home() {
+export default function Home() { 
   return (
     <>
       <Navbar />
@@ -148,7 +148,7 @@ export default function Home() {
                 </span>
               </Link>
 
-              {/* Tratamientos */}
+              {/* Tratamientoss */}
               <Link
                 href="/tratamientos"
                 className="group bg-white rounded-xl shadow-md hover:shadow-xl border border-gray-100 p-5 transition cursor-pointer flex flex-col justify-between"
